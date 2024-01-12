@@ -27,16 +27,25 @@ app.use(bodyParser.urlencoded({ extended: true}));
 // get query
 function Get() {
     
-    app.get('/', async (req, res) => {
-        const product = await db.select().from(productsTable);
-        res.send(product)
-        res.sendFile(__dirname, '../FrontEnd', 'index.html')
-    })
-    
-    // Request verification  
-    app.get('/test', (req, res) => {
-        res.send('Okey')
-    })
+    return (
+            app.get('/', async (req, res) => {
+                res.sendFile(path.join(__dirname, '../FrontEnd', 'index.html'));
+            }),
+
+            app.get('/edit', async (req, res) => {
+                res.sendFile(path.join(__dirname, '../FrontEnd', 'edit.html'));
+            }),
+
+            app.get('/api/products', async(req, res) => {
+                const product = await db.select().from(productsTable);
+                res.json(product);
+            }),
+
+            // Request verification  
+            app.get('/test', (req, res) => {
+            res.send('Okey')
+        })
+    )
 }
 
 // post query
@@ -50,10 +59,21 @@ function Post() {
     );
 }
 
+// edit under development (does not work)
+function Edit() {
+    return (
+        app.put('/product', async (req, res) => {
+            await db.update(productsTable).set({ id: req.body, name: req.body, about: req.body, price: req.body})
+            res.send('The edit data has been edits successfully, <a href="/">Home</a>')
+        })
+    );
+}
+
 // Starting the server function
 function Server() {    
     Get();
     Post();
+    Edit(); // does not work
 
     // Checking on error
     try {

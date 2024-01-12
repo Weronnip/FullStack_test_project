@@ -1,5 +1,7 @@
+// import config from library
 require('dotenv').config()
 
+// export model database
 export default {
   schema: './models/models.js',
   out: './drizzle',

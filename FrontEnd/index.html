@@ -15,7 +15,7 @@
             <form action="/product" method="post">
     
                 <label for="name" class="label__input">Name product: </label>
-                <input type="text" placeholder="Name: coffe" name="name" class="input__data">
+                <input type="text" placeholder="Name: coffee" name="name" class="input__data">
     
                 <br>
                 <br>
@@ -36,26 +36,28 @@
             </form>
         </div>
 
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
         <hr class="line">
         <!-- list product -->
         <div class="section_product">
+        <form action="/api/products" method="get">
             <div class="product">
                 <img src="" alt="img_product">
                 <hr class="line">
                 <h3 class="name_product">Name</h3>
-                <p class="about_product">
-                    about
-                </p>
+                <p class="about_product">about</p>
                 <hr class="line">
+                <button class="bth_price">Buy: </button>
+            </form>
                 <!-- button management -->
                 <div class="button">
-                    <form action="/edit" method="post">
-                        <button type="submit" class="bth__edit">edit</button>
-                    </form>
-                    <form action="/delete" method="post">
-                        <button type="submit" class="bth__delete">delete</button>
-                    </form>
-                    <button class="bth_price">Цена: </button>
+                    <a href="/edit" class="bth__edit">edit</a>
+                    <a href="/delete" class="bth__delete">delete</a>
                 </div>
             </div>
         </div>

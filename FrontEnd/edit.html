@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/style.css">
+    <title>Edits</title>
+</head>
+<body>
+    <div class="modal_add">
+        <h4 class="new_data">Edit product</h4>
+        <form action="/product:/{id}" method="post">
+
+            <label for="id" class="label__input">id product: </label>
+            <input type="number" placeholder="id product: 1" name="id" class="input__data">
+
+            <label for="name" class="label__input">Name product: </label>
+            <input type="text" placeholder="Name: coffee" name="name" class="input__data">
+
+            <br>
+            <br>
+
+            <label for="about" class="label__input">About product: </label>
+            <input type="text" placeholder="About: this coffe nice" name="about" class="input__data">
+
+            <br>
+            <br>
+
+            <label for="price" class="label__input">Price product: </label>
+            <input type="text" placeholder="price: 100" name="price" class="input__data">
+            
+            <br>
+            <br>
+            
+            <button type="submit" class="new__product">Add changes</button>
+        </form>
+    </div>
+</body>
+</html>
