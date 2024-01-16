@@ -1,5 +1,5 @@
 // imports library and modules from the project
-import { product as productsTable } from './models/models.js';
+import { product, product as productsTable } from './models/models.js';
 import bodyParser from 'body-parser';
 import { db } from "./models/db.js";
 import express from "express";
@@ -16,13 +16,11 @@ const PORT = process.env.SERVER_PORT;
 // we use the method from the libraries
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../FrontEnd')));
+app.use(express.static(path.join(__dirname, '../FrontEnd/js')));
 app.use(express.static(path.join(__dirname, '../FrontEnd/style')));
-app.use(express.static(path.resolve(__dirname, '../FrontEnd/javascript')));
-
 // json
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-
 
 // get query
 function Get() {
@@ -38,12 +36,17 @@ function Get() {
 
             app.get('/api/products', async(req, res) => {
                 const product = await db.select().from(productsTable);
-                res.json(product);
+                res.json(product)
+            }),
+
+            app.get('/api/products/:id', async(req, res) => {
+                const product = await db.select().from(productsTable);
+                res.json(product)
             }),
 
             // Request verification  
             app.get('/test', (req, res) => {
-            res.send('Okey')
+            res.send('Okay')
         })
     )
 }
@@ -62,8 +65,8 @@ function Post() {
 // edit under development (does not work)
 function Edit() {
     return (
-        app.put('/product', async (req, res) => {
-            await db.update(productsTable).set({ id: req.body, name: req.body, about: req.body, price: req.body})
+        app.patch('/product/:id', async (req, res) => {
+            await db.insert(productsTable).values({ id: req.body, name: req.body, about: req.body, price: req.body})
             res.send('The edit data has been edits successfully, <a href="/">Home</a>')
         })
     );
