@@ -6,6 +6,7 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import "dotenv/config";
+import { eq } from 'drizzle-orm';
 
 // setting
 const app = express();
@@ -38,10 +39,15 @@ function Get() {
                 const product = await db.select().from(productsTable);
                 res.json(product)
             }),
-
-            app.get('/api/products/:id', async(req, res) => {
-                const product = await db.select().from(productsTable);
-                res.json(product)
+            
+            app.get('/api/products/:id', async (req, res) => {
+                const id = req.params.id;
+                const product = await db.select().from(productsTable).where(eq(productsTable.id, id))
+                if (product) {
+                    res.json(product);
+                } else {
+                    res.status(404).send('Product not found');
+                }
             }),
 
             // Request verification  
@@ -57,7 +63,7 @@ function Post() {
         // create record in database
         app.post('/product', async (req, res) => {
             await db.insert(productsTable).values(req.body)
-            res.send('The data has been added successfully, <a href="/">Home</a>')
+            res.send('The data has been add successfully, <a href="/">Home</a>')
         })
     );
 }
@@ -65,11 +71,25 @@ function Post() {
 // edit under development (does not work)
 function Edit() {
     return (
-        app.patch('/product/:id', async (req, res) => {
-            await db.insert(productsTable).values({ id: req.body, name: req.body, about: req.body, price: req.body})
+        app.patch('/api/products/:id', async (req, res) => {
+            await db.update(productsTable).set({ name: req.body, about: req.body, price: req.body})
             res.send('The edit data has been edits successfully, <a href="/">Home</a>')
         })
     );
+}
+
+function Delete() {
+    return(
+     app.delete('/api/products/:id', async (req, res) => {
+        const id = req.params.id;
+        const product = await db.delete().from(productsTable).where(eq(productsTable.id, id))
+        if (product) {
+            res.json(product);
+        } else {
+            res.status(404).send('Product not found');
+        }
+     })
+    )
 }
 
 // Starting the server function
@@ -77,6 +97,7 @@ function Server() {
     Get();
     Post();
     Edit(); // does not work
+    Delete();
 
     // Checking on error
     try {

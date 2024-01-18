@@ -1,5 +1,6 @@
 // import modules from library
-import { mysqlTable, varchar, int, bigint } from 'drizzle-orm/mysql-core';
+import { mysqlTable, varchar, int } from 'drizzle-orm/mysql-core';
+
 // about model table
 export const product = mysqlTable('foods', {
     id: int('id').primaryKey() .autoincrement(),

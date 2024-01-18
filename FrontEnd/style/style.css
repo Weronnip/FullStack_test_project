@@ -96,30 +96,30 @@ body {
 .section_product {
     display: flex;
     width: 100%;
-    justify-content: space-around;
-    flex-direction: row-reverse;
-    margin-left: 45px;
-    margin-top: 150px;
+    margin-top: 50px;
 }
 
 .product {
     border-radius: 10px;
     border: 2px solid black;
-    width: 450px;
-    height: 500px;
-}
-
-.img_product {
-    border-radius: 12px;
-    width: 150px;
-    height: 150px;
-    margin: auto;
-    margin-top: 150px;
+    width: 400px;
+    height: 350px;
+    margin-left: 20px;
+    margin-bottom: 30px;
 }
 
 .line {
     width: 75%;
     height: 14px;
+    border: none;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: rgb(0, 0, 0);
+}
+
+.line-product {
+    width: 75%;
+    height: 7px;
     border: none;
     margin-top: 20px;
     border-radius: 20px;
@@ -138,7 +138,7 @@ body {
 }
 
 .bth_price {
-    width: 60%;
+    width: 50%;
     height: 25px;
     margin: auto;
     border: none;
