@@ -23,11 +23,25 @@ function productHTML({id, name, about, price}) {
                 <!-- button management -->
                 <div class="button">
                     <a href="/edit" class="bth__edit">edit</a>
-                    <form action="/api/products/:${id}" method="delete">
-                        <button type="submit" class="bth__delete">delete</button>
-                    </form>
-                    
+                    <button onclick="deleteProduct(${id})" type="submit" class="bth__delete">delete</button>
                 </div>
             </div>  
     `)
+}
+
+
+async function deleteProduct(id) {
+    const res = await fetch(`/api/products/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    if(data) {
+        document.getElementById(`list-product${id}`).remove()
+    }
 }

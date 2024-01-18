@@ -79,16 +79,16 @@ function Edit() {
 }
 
 function Delete() {
-    return(
-     app.delete('/api/products/:id', async (req, res) => {
-        const id = req.params.id;
-        const product = await db.delete().from(productsTable).where(eq(productsTable.id, id))
-        if (product) {
-            res.json(product);
-        } else {
-            res.status(404).send('Product not found');
-        }
-     })
+    return( 
+        app.delete('/api/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const productDelete = await db.delete(productsTable).where(eq(product.id, id))
+            if (productDelete) {
+                res.json(productDelete);
+            } else {
+                res.status(404).send('Product not found');
+            }
+         })
     )
 }
 
