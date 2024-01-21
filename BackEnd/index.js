@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, '../FrontEnd/js')));
 app.use(express.static(path.join(__dirname, '../FrontEnd/style')));
 // json
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 // get query
@@ -29,6 +30,10 @@ function Get() {
     return (
             app.get('/', async (req, res) => {
                 res.sendFile(path.join(__dirname, '../FrontEnd', 'index.html'));
+            }),
+
+            app.get('/create', async (req, res) => {
+                res.sendFile(path.join(__dirname, '../FrontEnd', 'create.html'));
             }),
 
             app.get('/edit', async (req, res) => {
@@ -68,16 +73,38 @@ function Post() {
     );
 }
 
-// edit under development (does not work)
 function Edit() {
     return (
         app.patch('/api/products/:id', async (req, res) => {
-            await db.update(productsTable).set({ name: req.body, about: req.body, price: req.body})
-            res.send('The edit data has been edits successfully, <a href="/">Home</a>')
+            try {
+                const productId = req.params.id;
+                const { name, about, price } = req.body;
+            
+                // Проверка наличия хотя бы одного значения для обновления
+                if (name || about || price) {
+                  const editProduct = await db.update(productsTable)
+                    .set({ name, about, price })
+                    .where({ id: productId });
+            
+                  
+                  // Проверка на успешность обновления
+                  if (editProduct.affectedRows == 0) {
+                    res.json(editProductResult);
+                  } else {
+                    res.status(404).send('Product not found');
+                  }
+                } else {
+                  res.status(400).send('No values to update');
+                }
+              } catch (error) {
+                console.error(error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
         })
-    );
+    ) 
 }
 
+// delete data
 function Delete() {
     return( 
         app.delete('/api/products/:id', async (req, res) => {
@@ -96,7 +123,7 @@ function Delete() {
 function Server() {    
     Get();
     Post();
-    Edit(); // does not work
+    Edit(); 
     Delete();
 
     // Checking on error

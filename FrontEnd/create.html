@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/style.css">
+    <title>New product</title>
+</head>
+<body>
+    <!-- input data -->
+    <div class="modal_add">
+        <h4 class="new_data">New add product</h4>
+        <form action="/product" method="post">
+
+            <label for="name" class="label__input">Name product: </label>
+            <input type="text" placeholder="Name: coffee" name="name" class="input__data">
+
+            <br>
+            <br>
+
+            <label for="about" class="label__input">About product: </label>
+            <input type="text" placeholder="About: this coffee nice" name="about" class="input__data">
+
+            <br>
+            <br>
+
+            <label for="price" class="label__input">Price product: </label>
+            <input type="text" placeholder="price: 100" name="price" class="input__data">
+            
+            <br>
+            <br>
+            
+            <button type="submit" class="new__product">Add new</button>
+        </form>
+    </div>
+</body>
+</html>

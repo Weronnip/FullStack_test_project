@@ -7,46 +7,13 @@
     <title>Home</title>
 </head>
 <body>
+
     <!-- body website -->
     <div class="section">
-        <!-- window input data -->
-        <div class="modal_add">
-            <h4 class="new_data">New add product</h4>
-            <form action="/product" method="post">
-    
-                <label for="name" class="label__input">Name product: </label>
-                <input type="text" placeholder="Name: coffee" name="name" class="input__data">
-    
-                <br>
-                <br>
-    
-                <label for="about" class="label__input">About product: </label>
-                <input type="text" placeholder="About: this coffe nice" name="about" class="input__data">
-    
-                <br>
-                <br>
-    
-                <label for="price" class="label__input">Price product: </label>
-                <input type="text" placeholder="price: 100" name="price" class="input__data">
-                
-                <br>
-                <br>
-                
-                <button type="submit" class="new__product">Add new</button>
-            </form>
-        </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <hr class="line">
         <!-- list product -->
         <h3 class="new_data">Products</h3>
-        <div class="section_product" id="list-product">
-        </div>
+        <a href="/create" class="new__product">New product</a>
+        <div class="section_product" id="list-product"></div>
     </div>
     <script src="./js/get.js"></script>
 </body>

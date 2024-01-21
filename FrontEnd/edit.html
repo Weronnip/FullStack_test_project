@@ -4,12 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/style.css">
-    <title>Edits</title>
+    <title>Edit product</title>
 </head>
 <body>
-    <div class="modal-add">
-        
+    <!-- input data -->
+    <div class="modal_add">
+            <label for="name" class="label__input" id="id_product">ID product: </label>
+            <br>
+            <br> 
+            <label for="name" class="label__input">Name product:</label>
+            <input type="text" placeholder="Name: coffee" name="name" class="input__data">
+
+            <br>
+            <br>
+
+            <label for="about" class="label__input">About product: </label>
+            <input type="text" placeholder="About: this coffee nice" name="about" class="input__data">
+
+            <br>
+            <br>
+
+            <label for="price" class="label__input">Price product: </label>
+            <input type="text" placeholder="price: 100" name="price" class="input__data">
+            
+            <br>
+            <br>
+            
+            <button type="button" onclick="updateProduct()" class="new__product">Change</button>
     </div>
-    <script src="./js/edit.js"></script>
+
+    <script>
+        async function updateProduct(id, name, about, price) {
+            const id = document.getElementById(`id_product${id}`)
+
+            const res = await fetch(`/api/products/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(name, about, price),
+                })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log('Product updated successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error updating product:', error);
+            });
+        }
+
+
+        updateProduct(`${id}, ${name}, ${about}, ${price}`);
+    </script>
 </body>
 </html>
